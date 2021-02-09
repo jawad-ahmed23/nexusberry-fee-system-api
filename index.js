@@ -3,11 +3,14 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 
-import studentsRoute from './routes/students.js';
-import teachersRoute from './routes/teacher.js';
-import coursesRoute from './routes/course.js';
-import feeDetailRoute from './routes/feeDetail.js';
-import staffRoute from './routes/staff.js';
+import {
+  studentsRoute,
+  teachersRoute,
+  coursesRoute,
+  staffRoute,
+  offeringRoute,
+  registrationRoute,
+} from './routes/index.js';
 
 dotenv.config();
 
@@ -18,8 +21,9 @@ app.use(bodyParser.json());
 app.use('/api/students', studentsRoute);
 app.use('/api/teachers', teachersRoute);
 app.use('/api/courses', coursesRoute);
-app.use('/api/fee-detail', feeDetailRoute);
 app.use('/api/staff', staffRoute);
+app.use('/api/offering', offeringRoute);
+app.use('/api/registration', registrationRoute);
 
 const PORT = process.env.PORT || 5000;
 

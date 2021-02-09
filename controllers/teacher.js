@@ -12,6 +12,21 @@ export const getAllTeacher = async (req, res) => {
   }
 };
 
+export const getOneTeacher = async (req, res) => {
+  try {
+    const teacher = await TeacherModel.findById(req.params.id);
+    res.status(200).json({
+      message: 'success',
+      teacher,
+    });
+  } catch (error) {
+    res.status(404).json({
+      message: 'fail',
+      error,
+    });
+  }
+};
+
 export const createTeacher = async (req, res) => {
   try {
     await TeacherModel.create(req.body);

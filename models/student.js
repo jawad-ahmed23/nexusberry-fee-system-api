@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const studentSchema = mongoose.Schema({
   name: {
-    type: String,
+    type: String, // fullname
   },
   mobile: {
     type: String,
@@ -10,18 +10,28 @@ const studentSchema = mongoose.Schema({
   email: {
     type: String,
   },
-  trainingMode: {
-    type: String,
-  },
+  // trainingMode: {
+  //   type: String, // online, physical
+  // },
   city: {
     type: String,
   },
   province: {
     type: String,
   },
-  institution: {
+  jobStatus: {
+    type: String, // Studying, doing job, doing business, not on job, freelancing
+  },
+  curOrganization: {
+    type: String, // current org name
+  },
+  qualification: {
     type: String,
   },
+  password: {
+    type: String,
+  },
+  friends: [{ type: mongoose.Schema.Types.Array, ref: 'Student' }],
 });
 
 const StudentModel = mongoose.model('Student', studentSchema);

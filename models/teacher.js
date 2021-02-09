@@ -13,6 +13,24 @@ const teacherSchema = mongoose.Schema({
   note: {
     type: String,
   },
+  jobStatus: {
+    type: String, // Studying, doing job, doing business, not on job, freelancing
+  },
+  curOrganization: {
+    type: String, // current org name
+  },
+  joiningDate: {
+    type: Date,
+  },
+  salary: {
+    type: Number,
+  },
+  qualification: {
+    type: String,
+  },
+  password: {
+    type: String,
+  },
 });
 
 const TeacherModel = mongoose.model('Teacher', teacherSchema);

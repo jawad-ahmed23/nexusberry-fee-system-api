@@ -5,10 +5,25 @@ export const getAllStudents = async (req, res) => {
     const students = await StudentModel.find();
     res.status(200).json({
       message: 'success',
-      data: students,
+      students,
     });
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const getOneStudent = async (req, res) => {
+  try {
+    const student = await StudentModel.findById(req.params.id);
+    res.status(200).json({
+      message: 'success',
+      student,
+    });
+  } catch (error) {
+    res.status(404).json({
+      message: 'fail',
+      error,
+    });
   }
 };
 

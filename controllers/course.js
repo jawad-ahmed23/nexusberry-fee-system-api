@@ -16,7 +16,7 @@ export const getAllCourses = async (req, res) => {
   }
 };
 
-export const findOneCourse = async (req, res) => {
+export const getOneCourse = async (req, res) => {
   try {
     const course = await CourseModel.findById(req.params.id).populate(
       'teacher'
