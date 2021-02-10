@@ -17,9 +17,9 @@ export const getAllOfferings = async (req, res) => {
 
 export const getOneOffering = async (req, res) => {
   try {
-    const offering = await Offering.findById(req.params.id)
-      .populate('teacher')
-      .populate('course');
+    const offering = await Offering.findById(req.params.id);
+    // .populate('teacher')
+    // .populate('course');
     res.status(200).json({
       message: 'succees',
       offering,

@@ -43,22 +43,14 @@ const offeringSchema = mongoose.Schema({
     type: String, // continue, finished
     default: 'continue',
   },
-  studentsOnTrial: [
-    {
-      name: {
-        type: String,
-      },
-    },
-  ],
-  studentsConfirmedRegistration: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Student',
-    },
-  ],
+
   batchNo: {
     type: Number,
   },
+});
+
+offeringSchema.pre(/^find/, function (next) {
+  this.populate('teacher').populate('course');
 });
 
 export default mongoose.model('Offering', offeringSchema);

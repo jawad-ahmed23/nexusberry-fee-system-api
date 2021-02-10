@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 // route to transfer section
 const registrationSchema = mongoose.Schema({
-  // registration
+  // registration /////////////////////////////////////////////////
   offering: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Offering',
@@ -13,7 +13,7 @@ const registrationSchema = mongoose.Schema({
   trainingMode: {
     type: String, // online, physical
   },
-  // account
+  // account /////////////////////////////////////////////////////////
   registraionFee: {
     type: Number,
     default: 0,
@@ -54,8 +54,7 @@ const registrationSchema = mongoose.Schema({
       },
     },
   ],
-
-  // exams
+  // exams //////////////////////////////////////////////////////////////////
   result: {
     type: String, // pass, fail, left incomplete, course continue
     default: 'Course Continue',
