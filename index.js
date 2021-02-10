@@ -21,9 +21,9 @@ app.use(bodyParser.json());
 app.use('/api/students', studentsRoute);
 app.use('/api/teachers', teachersRoute);
 app.use('/api/courses', coursesRoute);
-app.use('/api/staff', staffRoute);
-app.use('/api/offering', offeringRoute);
-app.use('/api/registration', registrationRoute);
+app.use('/api/staffs', staffRoute);
+app.use('/api/offerings', offeringRoute);
+app.use('/api/registrations', registrationRoute);
 
 const PORT = process.env.PORT || 5000;
 
