@@ -51,6 +51,7 @@ const offeringSchema = mongoose.Schema({
 
 offeringSchema.pre(/^find/, function (next) {
   this.populate('teacher').populate('course');
+  next();
 });
 
 export default mongoose.model('Offering', offeringSchema);
