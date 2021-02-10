@@ -29,14 +29,30 @@ const PORT = process.env.PORT || 5000;
 
 const url = `mongodb+srv://jawad-ahmed:${process.env.DB_PASSWORD}@cluster0.s3dj8.mongodb.net/nexusberry-fee-system?retryWrites=true&w=majority`;
 
-mongoose
-  .connect(url, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log('server connected'))
-  .catch((error) => console.log(error));
+// mongoose
+//   .connect(url, {
+//     useNewUrlParser: true,
+//     useCreateIndex: true,
+//     useFindAndModify: false,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => console.log('server connected'))
+//   .catch((error) => console.log(error));
 
-app.listen(PORT, () => console.log(`server is running on port${PORT}`));
+mongoose.connect(url, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useCreateIndex: true,
+});
+
+const { connection } = mongoose;
+
+connection
+  .once('open', () => {
+    console.log('mongoDB database connection established');
+  })
+  .on('error', (err) => {
+    console.log('Error: ', err);
+  });
+
+app.listen(PORT, () => console.log(`server is running on port ${PORT}`));

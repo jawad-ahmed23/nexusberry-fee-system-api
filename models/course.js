@@ -23,6 +23,10 @@ const courseSchema = mongoose.Schema({
   featured: {
     type: Boolean, // yes, no
   },
+  track: {
+    // specialization 1 or 2
+    type: Number,
+  },
 });
 
 export default mongoose.model('Course', courseSchema);

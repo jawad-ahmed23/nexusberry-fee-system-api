@@ -43,6 +43,19 @@ const offeringSchema = mongoose.Schema({
     type: String, // continue, finished
     default: 'continue',
   },
+  studentsOnTrial: [
+    {
+      name: {
+        type: String,
+      },
+    },
+  ],
+  studentsConfirmedRegistration: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Student',
+    },
+  ],
   batchNo: {
     type: Number,
   },
