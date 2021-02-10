@@ -28,7 +28,7 @@ app.use('/api/registration', registrationRoute);
 const PORT = process.env.PORT || 5000;
 
 const url = `mongodb+srv://jawad-ahmed:${process.env.DB_PASSWORD}@cluster0.s3dj8.mongodb.net/nexusberry-fee-system?retryWrites=true&w=majority`;
-
+console.log(process.env.DB_PASSWORD);
 mongoose
   .connect(url, {
     useNewUrlParser: true,
