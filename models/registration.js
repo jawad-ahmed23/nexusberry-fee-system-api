@@ -68,4 +68,9 @@ const registrationSchema = mongoose.Schema({
   },
 });
 
+registrationSchema.pre(/^find/, function (next) {
+  this.populate('offering').populate('student');
+  next();
+});
+
 export default mongoose.model('Registration', registrationSchema);

@@ -31,7 +31,7 @@ const studentSchema = mongoose.Schema({
   password: {
     type: String,
   },
-  friends: [{ type: mongoose.Schema.Types.Array, ref: 'Student' }],
+  friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }],
 });
 
 const StudentModel = mongoose.model('Student', studentSchema);
