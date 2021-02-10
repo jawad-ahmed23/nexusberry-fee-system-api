@@ -1,20 +1,11 @@
-/* eslint-disable quotes */
-/* eslint-disable quote-props */
 import StudentModel from '../models/student.js';
-
-const data = [
-  {
-    "name": "jawadAhmed",
-    "email": "ja13891@gmail.com"
-  }
-];
 
 export const getAllStudents = async (req, res) => {
   try {
-    // const students = await StudentModel.find();
+    const students = await StudentModel.find();
     res.status(200).json({
       message: 'success',
-      data,
+      students,
     });
   } catch (error) {
     console.log(error);
