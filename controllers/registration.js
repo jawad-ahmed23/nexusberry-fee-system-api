@@ -170,7 +170,6 @@ export const changeOffer = async (req, res) => {
   try {
     const { studentId } = req.params;
     const { currentOfferId, destOfferId } = req.body;
-    console.log({ studentId, currentOfferId, destOfferId });
     const find = await Registration.findOneAndUpdate(
       {
         student: studentId,
