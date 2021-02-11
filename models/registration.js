@@ -37,6 +37,7 @@ const registrationSchema = mongoose.Schema({
       },
       medium: {
         type: String, // cash, jazzcash, easypaissa, bank
+        default: 'Cash',
       },
       staff: {
         // name of staff who received fee
@@ -44,8 +45,14 @@ const registrationSchema = mongoose.Schema({
         ref: 'Staff',
         required: [true, 'Fee Datail must have receive by id'],
       },
-      deposit: {
-        // fee dopisited by staff to account/director
+      depositedTo: {
+        type: String, // fee dopisited by staff to account/director
+      },
+      depositeDate: {
+        type: Date,
+        default: Date.now(),
+      },
+      verified: {
         type: Boolean,
         default: false,
       },
@@ -69,7 +76,10 @@ const registrationSchema = mongoose.Schema({
 });
 
 registrationSchema.pre(/^find/, function (next) {
-  this.populate('offering').populate('student');
+  this.populate({ path: 'offering', select: '-__v' }).populate({
+    path: 'student',
+    select: '-__v',
+  });
   next();
 });
 

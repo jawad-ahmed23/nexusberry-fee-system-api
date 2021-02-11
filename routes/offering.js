@@ -7,12 +7,16 @@ import {
   updateOffering,
 } from '../controllers/Offering.js';
 
-const route = express.Router();
+const router = express.Router();
 
-route.get('/', getAllOfferings);
-route.get('/:id', getOneOffering);
-route.post('/', createOffering);
-route.patch('/:id', updateOffering);
-route.delete('/:id', deleteOffering);
+router.get('/', getAllOfferings); // all offerings current and past
+// router.get('current/', getCurrentOfferings); // all offererings whose end is false
+// router.get('past/', getPastOfferings); // all offerering whose end is true
 
-export default route;
+router.get('/:id', getOneOffering);
+
+router.post('/', createOffering);
+router.put('/:id', updateOffering);
+router.delete('/:id', deleteOffering);
+
+export default router;

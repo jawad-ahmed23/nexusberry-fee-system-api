@@ -1,4 +1,4 @@
-import studentsRoute from './students.js';
+import studentsRoute from './student.js';
 import teachersRoute from './teacher.js';
 import coursesRoute from './course.js';
 import staffRoute from './staff.js';

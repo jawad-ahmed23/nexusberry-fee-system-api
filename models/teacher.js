@@ -4,6 +4,9 @@ const teacherSchema = mongoose.Schema({
   name: {
     type: String,
   },
+  nick: {
+    type: String,
+  },
   mobile: {
     type: String,
   },

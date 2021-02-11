@@ -5,10 +5,10 @@ import {
   getOneCourse,
 } from '../controllers/course.js';
 
-const route = express.Router();
+const router = express.Router();
 
-route.get('/', getAllCourses);
-route.get('/:id', getOneCourse);
-route.post('/', createCourse);
+router.get('/', getAllCourses);
+router.get('/:id', getOneCourse);
+router.post('/', createCourse);
 
-export default route;
+export default router;

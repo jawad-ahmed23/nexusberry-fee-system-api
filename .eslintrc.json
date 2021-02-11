@@ -17,6 +17,7 @@
     "comma-dangle": "off",
     "object-curly-newline": "off",
     "func-names": "off",
-    "prefer-arrow-callback": "off"
+    "prefer-arrow-callback": "off",
+    "no-underscore-dangle": "off"
   }
 }

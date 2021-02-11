@@ -5,10 +5,10 @@ import {
   getOneStaffEmployees,
 } from '../controllers/staff.js';
 
-const route = express.Router();
+const router = express.Router();
 
-route.get('/', getAllStaffEmployees);
-route.get('/:id', getOneStaffEmployees);
-route.post('/', createStaffEmployee);
+router.get('/', getAllStaffEmployees);
+router.get('/:id', getOneStaffEmployees);
+router.post('/', createStaffEmployee);
 
-export default route;
+export default router;

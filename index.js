@@ -2,6 +2,8 @@ import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 import {
   studentsRoute,
@@ -12,12 +14,16 @@ import {
   registrationRoute,
 } from './routes/index.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 dotenv.config();
 
 const app = express();
 
 app.use(bodyParser.json());
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/students', studentsRoute);
 app.use('/api/teachers', teachersRoute);
 app.use('/api/courses', coursesRoute);

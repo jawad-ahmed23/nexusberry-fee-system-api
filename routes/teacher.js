@@ -7,12 +7,12 @@ import {
   getOneTeacher,
 } from '../controllers/teacher.js';
 
-const route = express.Router();
+const router = express.Router();
 
-route.get('/', getAllTeacher);
-route.get('/:id', getOneTeacher);
-route.post('/', createTeacher);
-route.patch('/:id', updateTeacher);
-route.delete('/:id', deleteTeacher);
+router.get('/', getAllTeacher);
+router.get('/:id', getOneTeacher);
+router.post('/', createTeacher);
+router.patch('/:id', updateTeacher);
+router.delete('/:id', deleteTeacher);
 
-export default route;
+export default router;

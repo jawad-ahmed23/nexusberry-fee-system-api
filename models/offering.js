@@ -39,18 +39,24 @@ const offeringSchema = mongoose.Schema({
     type: Boolean,
     default: true,
   },
-  finishStatus: {
-    type: String, // continue, finished
-    default: 'continue',
+  // finishStatus: {
+  //   type: String, // continue, finished
+  //   default: 'continue',
+  // },
+  end: {
+    type: Boolean,
+    default: false,
   },
-
-  batchNo: {
-    type: Number,
+  batch: {
+    type: String, // branch(code)-course(code aaa)-session(yymm)-batch(autoIncrement 000)
   },
 });
 
 offeringSchema.pre(/^find/, function (next) {
-  this.populate('teacher').populate('course');
+  this.populate({ path: 'teacher', select: '-__v' }).populate({
+    path: 'course',
+    select: '-__v',
+  });
   next();
 });
 

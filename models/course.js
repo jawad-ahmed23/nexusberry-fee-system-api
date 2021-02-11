@@ -6,10 +6,13 @@ const courseSchema = mongoose.Schema({
     unique: [true, 'title should be unique'],
   },
   category: {
-    type: String,
+    type: String, // Design, Development, Marketing, IELTS
   },
   subCategory: {
-    type: String,
+    type: String, //
+  },
+  code: {
+    type: String, // to include in batch
   },
   description: {
     type: String,

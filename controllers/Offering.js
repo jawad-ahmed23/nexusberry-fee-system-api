@@ -5,6 +5,7 @@ export const getAllOfferings = async (req, res) => {
     const offerings = await Offering.find();
     res.status(200).json({
       message: 'succees',
+      result: offerings.length,
       offerings,
     });
   } catch (error) {
@@ -18,10 +19,9 @@ export const getAllOfferings = async (req, res) => {
 export const getOneOffering = async (req, res) => {
   try {
     const offering = await Offering.findById(req.params.id);
-    // .populate('teacher')
-    // .populate('course');
     res.status(200).json({
       message: 'succees',
+      result: offering.length,
       offering,
     });
   } catch (error) {

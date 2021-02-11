@@ -18,9 +18,10 @@ export const getAllCourses = async (req, res) => {
 
 export const getOneCourse = async (req, res) => {
   try {
-    const course = await CourseModel.findById(req.params.id).populate(
-      'teacher'
-    );
+    const course = await CourseModel.findById(req.params.id);
+    // .populate(
+    //   'teacher'
+    // );
 
     res.status(200).json({
       message: 'success',
