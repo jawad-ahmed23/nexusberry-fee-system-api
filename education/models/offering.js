@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
 
 const offeringSchema = mongoose.Schema({
+  batch: {
+    type: String, // branch(code)-course(code aaa)-session(yymm)-batch(autoIncrement 000)
+  },
   teacher: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Teacher',
@@ -39,16 +42,9 @@ const offeringSchema = mongoose.Schema({
     type: Boolean,
     default: true,
   },
-  // finishStatus: {
-  //   type: String, // continue, finished
-  //   default: 'continue',
-  // },
   end: {
     type: Boolean,
     default: false,
-  },
-  batch: {
-    type: String, // branch(code)-course(code aaa)-session(yymm)-batch(autoIncrement 000)
   },
 });
 

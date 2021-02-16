@@ -1,6 +1,5 @@
 import express from 'express';
 import {
-  getOneRegistration,
   getAllRegistrations,
   createRegistration,
   deleteRegistration,
@@ -9,6 +8,8 @@ import {
   getRegistrationsByDueDate,
   getStudentRegistrationDetail,
   changeOffer,
+  submitInstallment,
+  getTransactions,
 } from '../controllers/registration.js';
 
 const router = express.Router();
@@ -23,14 +24,17 @@ router.post('/due-date', getRegistrationsByDueDate);
 router.get('/student-detail/:studentId', getStudentRegistrationDetail);
 
 // update student offer Id get currentOfferId and change it destination offer Id
-router.put('/change-offer/:studentId', changeOffer); // update offer Id
+router.put('/change-batch/:studentId', changeOffer); // update offer Id
 
-// router.put('/submit-installment/:offerId/:studentId', submitInstallment);
+router.put(
+  '/submit-installment/offer/:offerId/student/:studentId',
+  submitInstallment
+);
 // transaction object in request body
 
-// router.get('/transaction/from/:date/to/:date', getTransactions); // Date wise fee detail
+// router.get('/transactions/:registrationId', getTransactions); // Date wise fee detail
 // router.get('/transation/offer'); // offering wise fee detail
-// teacher wise fee detail
+
 router.put('/:id', updateRegistration);
 
 router.post('/', createRegistration);

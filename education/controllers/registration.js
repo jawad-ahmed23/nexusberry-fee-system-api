@@ -21,13 +21,13 @@ export const getOneRegistration = async (req, res) => {
     const registration = await Registration.findById(req.params.id)
       .populate('student')
       .populate('offering')
-      .populate({
-        path: 'transactions',
-        populate: {
-          path: 'staff',
-          collection: 'Staff',
-        },
-      })
+      // .populate({
+      //   path: 'transactions',
+      //   populate: {
+      //     path: 'staff',
+      //     collection: 'Staff',
+      //   },
+      // })
       .populate('teacher')
       .populate('course');
     res.status(200).json({
@@ -111,10 +111,12 @@ export const getRegistrationsByDueDate = async (req, res) => {
     const { dateFrom, dateTo } = req.body;
     const from = new Date(dateFrom);
     const to = new Date(dateTo);
-    const registrationsByDueDate = await Registration.find()
-      .where('nextInstallmentDate')
-      .lte(to)
-      .gte(from);
+    const registrationsByDueDate = await Registration.find({
+      $and: [{ nextInstallmentDate: { $lte: to } }, { date: { $gte: from } }],
+    });
+    // .where('nextInstallmentDate')
+    // .lte(to)
+    // .gte(from);
 
     const currentDate = Date.now();
 
@@ -183,6 +185,54 @@ export const changeOffer = async (req, res) => {
       status: 'success',
       find,
     });
+  } catch (error) {
+    res.status(400).json({
+      status: 'error',
+      error,
+    });
+  }
+};
+
+// submit student fee
+export const submitInstallment = async (req, res) => {
+  try {
+    const { offerId, studentId } = req.params;
+    const { nextInstallmentDate } = req.body;
+    const date = new Date();
+    const nextDueDate = new Date(date.setMonth(date.getMonth() + 1));
+
+    await Registration.findOneAndUpdate(
+      {
+        offering: offerId,
+        student: studentId,
+      },
+      {
+        $push: {
+          transactions: req.body.transactions,
+        },
+        nextInstallmentDate: nextInstallmentDate || nextDueDate,
+      },
+      { new: true }
+    );
+
+    res.status(200).json({
+      message: 'success',
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'error',
+      error,
+    });
+  }
+};
+
+export const getTransactions = async (req, res) => {
+  try {
+    const { registrationId } = req.params;
+
+    const registration = await Registration.findById(registrationId);
+
+    res.status(200).json({ message: 'success', registration });
   } catch (error) {
     res.status(400).json({
       status: 'error',

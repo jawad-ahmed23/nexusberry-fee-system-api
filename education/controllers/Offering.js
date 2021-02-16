@@ -73,3 +73,37 @@ export const deleteOffering = async (req, res) => {
     });
   }
 };
+
+// Get All Current Offerings
+export const getCurrentOfferings = async (req, res) => {
+  try {
+    const currentOfferings = await Offering.find({ end: false });
+    res.status(200).json({
+      message: 'success',
+      result: currentOfferings.length,
+      currentOfferings,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'error',
+      error,
+    });
+  }
+};
+
+// Get All Past Offerings
+export const getPastOfferings = async (req, res) => {
+  try {
+    const currentOfferings = await Offering.find({ end: true });
+    res.status(200).json({
+      message: 'success',
+      result: currentOfferings.length,
+      currentOfferings,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'error',
+      error,
+    });
+  }
+};

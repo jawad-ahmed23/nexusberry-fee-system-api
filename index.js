@@ -12,7 +12,8 @@ import {
   staffRoute,
   offeringRoute,
   registrationRoute,
-} from './routes/index.js';
+  transactionRoute,
+} from './education/routes/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -30,6 +31,7 @@ app.use('/api/courses', coursesRoute);
 app.use('/api/staffs', staffRoute);
 app.use('/api/offerings', offeringRoute);
 app.use('/api/registrations', registrationRoute);
+app.use('/api/transactions', transactionRoute);
 
 const PORT = process.env.PORT || 5000;
 
