@@ -1,5 +1,4 @@
 import Registration from '../models/registration.js';
-import catchAsync from '../../utils/catchAsync.js';
 
 export const getAllRegistrations = async (req, res) => {
   try {
@@ -63,7 +62,7 @@ export const updateRegistration = async (req, res) => {
   }
 };
 
-export const deleteRegistration = catchAsync(async (req, res) => {
+export const deleteRegistration = async (req, res) => {
   try {
     await Registration.findByIdAndDelete(req.params.id);
     res.status(204).json({
@@ -75,7 +74,7 @@ export const deleteRegistration = catchAsync(async (req, res) => {
       error,
     });
   }
-});
+};
 
 // Registration for one offer
 export const getOfferRegistrations = async (req, res) => {
@@ -141,7 +140,7 @@ export const getRegistrationsByDueDate = async (req, res) => {
 };
 
 // student registration detail of all current and past offerings that he has attended
-export const getStudentRegistrationDetail = catchAsync(async (req, res) => {
+export const getStudentRegistrationDetail = async (req, res) => {
   try {
     const studentRegistrationsDetail = await Registration.find()
       .where('student')
@@ -157,7 +156,7 @@ export const getStudentRegistrationDetail = catchAsync(async (req, res) => {
       error,
     });
   }
-});
+};
 
 export const changeOffer = async (req, res) => {
   try {
