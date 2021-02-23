@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import cors from 'cors';
 
 import {
   studentsRoute,
@@ -13,6 +14,7 @@ import {
   offeringRoute,
   registrationRoute,
   transactionRoute,
+  invoiceRoute,
 } from './education/routes/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -21,6 +23,8 @@ const __dirname = dirname(__filename);
 dotenv.config();
 
 const app = express();
+
+app.use(cors());
 
 app.use(bodyParser.json());
 
@@ -32,6 +36,7 @@ app.use('/api/staffs', staffRoute);
 app.use('/api/offerings', offeringRoute);
 app.use('/api/registrations', registrationRoute);
 app.use('/api/transactions', transactionRoute);
+app.use('/api/invoices', invoiceRoute);
 
 const PORT = process.env.PORT || 5000;
 

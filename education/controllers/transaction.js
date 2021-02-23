@@ -1,14 +1,17 @@
-import mongoose from 'mongoose';
 import Transaction from '../models/transaction.js';
 
 export const createTransaction = async (req, res) => {
   try {
-    await Transaction.create(req.body);
+    const transaction = await Transaction.create(req.body);
     res.status(201).json({
-      message: 'created!',
+      status: 'created',
+      transaction,
     });
   } catch (error) {
-    res.status(400).json({ status: 'error', error });
+    res.status(400).json({
+      status: 'fail',
+      error,
+    });
   }
 };
 
@@ -26,7 +29,10 @@ export const getTransactionsByDueDate = async (req, res) => {
       transactionsByDueDate,
     });
   } catch (error) {
-    res.status(400).json({ status: 'error', error });
+    res.status(400).json({
+      status: 'fail',
+      error,
+    });
   }
 };
 
@@ -46,7 +52,35 @@ export const getTransactionsByDueDateForBatch = async (req, res) => {
       status: 'success',
     });
   } catch (error) {
-    res.status(400).json({ status: 'error', error });
+    res.status(400).json({
+      status: 'fail',
+      error,
+    });
+  }
+};
+
+export const getTransactionReceiptByRegistration = async (req, res) => {
+  try {
+    const { registrationId } = req.params;
+    const { date } = req.body;
+    const transactionDate = new Date(date);
+    const transaction = await Transaction.find({
+      $and: [
+        { registration: registrationId },
+        { date: { $lte: transactionDate } },
+      ],
+    });
+
+    res.status(200).json({
+      status: 'success',
+      result: transaction.length,
+      transaction,
+    });
+  } catch (error) {
+    res.status(404).json({
+      status: 'fail',
+      error,
+    });
   }
 };
 

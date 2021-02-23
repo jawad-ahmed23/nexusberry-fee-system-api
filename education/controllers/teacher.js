@@ -8,7 +8,10 @@ export const getAllTeacher = async (req, res) => {
       data: teachers,
     });
   } catch (error) {
-    console.log(error);
+    res.status(404).json({
+      status: 'fail',
+      error,
+    });
   }
 };
 
@@ -21,7 +24,7 @@ export const getOneTeacher = async (req, res) => {
     });
   } catch (error) {
     res.status(404).json({
-      message: 'fail',
+      status: 'fail',
       error,
     });
   }
@@ -34,7 +37,10 @@ export const createTeacher = async (req, res) => {
       message: 'success',
     });
   } catch (error) {
-    console.log(error);
+    res.status(400).json({
+      status: 'fail',
+      error,
+    });
   }
 };
 
@@ -47,7 +53,10 @@ export const updateTeacher = async (req, res) => {
       message: 'success',
     });
   } catch (error) {
-    console.log(error);
+    res.status(400).json({
+      status: 'fail',
+      error,
+    });
   }
 };
 
@@ -56,6 +65,9 @@ export const deleteTeacher = async (req, res) => {
     await TeacherModel.findByIdAndRemove(req.params.id);
     res.status(204).json({ message: 'success' });
   } catch (error) {
-    console.log(error);
+    res.status(400).json({
+      status: 'fail',
+      error,
+    });
   }
 };

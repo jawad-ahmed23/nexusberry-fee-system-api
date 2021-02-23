@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
 const timeTableSchema = new mongoose.Schema({
-  registration: {
+  offering: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Registration',
+    ref: 'Offering',
   },
   day: {
     type: String,

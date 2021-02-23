@@ -1,4 +1,5 @@
 import Registration from '../models/registration.js';
+import catchAsync from '../../utils/catchAsync.js';
 
 export const getAllRegistrations = async (req, res) => {
   try {
@@ -9,8 +10,8 @@ export const getAllRegistrations = async (req, res) => {
       registrations,
     });
   } catch (error) {
-    res.status(404).json({
-      message: 'fail',
+    res.status(400).json({
+      status: 'fail',
       error,
     });
   }
@@ -18,25 +19,14 @@ export const getAllRegistrations = async (req, res) => {
 
 export const getOneRegistration = async (req, res) => {
   try {
-    const registration = await Registration.findById(req.params.id)
-      .populate('student')
-      .populate('offering')
-      // .populate({
-      //   path: 'transactions',
-      //   populate: {
-      //     path: 'staff',
-      //     collection: 'Staff',
-      //   },
-      // })
-      .populate('teacher')
-      .populate('course');
+    const registration = await Registration.findById(req.params.id);
     res.status(200).json({
       message: 'succees',
       registration,
     });
   } catch (error) {
-    res.status(404).json({
-      message: 'fail',
+    res.status(400).json({
+      status: 'fail',
       error,
     });
   }
@@ -44,13 +34,14 @@ export const getOneRegistration = async (req, res) => {
 
 export const createRegistration = async (req, res) => {
   try {
-    await Registration.create(req.body);
+    const registration = await Registration.create(req.body);
     res.status(201).json({
       message: 'succees',
+      registration,
     });
   } catch (error) {
     res.status(400).json({
-      message: 'fail',
+      status: 'fail',
       error,
     });
   }
@@ -66,13 +57,13 @@ export const updateRegistration = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      message: 'fail',
+      status: 'fail',
       error,
     });
   }
 };
 
-export const deleteRegistration = async (req, res) => {
+export const deleteRegistration = catchAsync(async (req, res) => {
   try {
     await Registration.findByIdAndDelete(req.params.id);
     res.status(204).json({
@@ -80,26 +71,26 @@ export const deleteRegistration = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      message: 'fail',
+      status: 'fail',
       error,
     });
   }
-};
+});
 
 // Registration for one offer
 export const getOfferRegistrations = async (req, res) => {
   try {
-    const registration = await Registration.find()
+    const registrations = await Registration.find()
       .where('offering')
       .equals(req.params.offerId);
     res.status(200).json({
       message: 'success',
-      result: registration.length,
-      registration,
+      result: registrations.length,
+      registrations,
     });
   } catch (error) {
-    res.status(404).json({
-      status: 'error',
+    res.status(400).json({
+      status: 'fail',
       error,
     });
   }
@@ -142,15 +133,15 @@ export const getRegistrationsByDueDate = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(400).json({
-      status: 'error',
+    res.status(404).json({
+      status: 'fail',
       error,
     });
   }
 };
 
 // student registration detail of all current and past offerings that he has attended
-export const getStudentRegistrationDetail = async (req, res) => {
+export const getStudentRegistrationDetail = catchAsync(async (req, res) => {
   try {
     const studentRegistrationsDetail = await Registration.find()
       .where('student')
@@ -162,11 +153,11 @@ export const getStudentRegistrationDetail = async (req, res) => {
     });
   } catch (error) {
     res.status(404).json({
-      status: 'error',
+      status: 'fail',
       error,
     });
   }
-};
+});
 
 export const changeOffer = async (req, res) => {
   try {
@@ -187,7 +178,7 @@ export const changeOffer = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: 'error',
+      status: 'fail',
       error,
     });
   }
@@ -220,7 +211,7 @@ export const submitInstallment = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: 'error',
+      status: 'fail',
       error,
     });
   }
@@ -229,13 +220,14 @@ export const submitInstallment = async (req, res) => {
 export const getTransactions = async (req, res) => {
   try {
     const { registrationId } = req.params;
-
     const registration = await Registration.findById(registrationId);
-
-    res.status(200).json({ message: 'success', registration });
+    res.status(200).json({
+      message: 'success',
+      registration,
+    });
   } catch (error) {
     res.status(400).json({
-      status: 'error',
+      status: 'fail',
       error,
     });
   }

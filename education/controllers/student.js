@@ -3,12 +3,16 @@ import StudentModel from '../models/student.js';
 export const getAllStudents = async (req, res) => {
   try {
     const students = await StudentModel.find();
+
     res.status(200).json({
       message: 'success',
       students,
     });
   } catch (error) {
-    console.log(error);
+    res.status(404).json({
+      status: 'fail',
+      error,
+    });
   }
 };
 
@@ -16,12 +20,12 @@ export const getOneStudent = async (req, res) => {
   try {
     const student = await StudentModel.findById(req.params.id);
     res.status(200).json({
-      message: 'success',
+      status: 'success',
       student,
     });
   } catch (error) {
     res.status(404).json({
-      message: 'fail',
+      status: 'fail',
       error,
     });
   }
@@ -31,10 +35,13 @@ export const createStudent = async (req, res) => {
   try {
     await StudentModel.create(req.body);
     res.status(201).json({
-      message: 'success',
+      status: 'success',
     });
   } catch (error) {
-    console.log(error);
+    res.status(404).json({
+      status: 'fail',
+      error,
+    });
   }
 };
 
@@ -44,10 +51,13 @@ export const updateStudent = async (req, res) => {
       new: true,
     });
     res.status(204).json({
-      message: 'success',
+      status: 'success',
     });
   } catch (error) {
-    console.log(error);
+    res.status(404).json({
+      status: 'fail',
+      error,
+    });
   }
 };
 
@@ -56,6 +66,9 @@ export const deleteStudent = async (req, res) => {
     await StudentModel.findByIdAndRemove(req.params.id);
     res.status(204).json({ message: 'success' });
   } catch (error) {
-    console.log(error);
+    res.status(404).json({
+      status: 'fail',
+      error,
+    });
   }
 };

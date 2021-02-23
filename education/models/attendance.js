@@ -1,9 +1,6 @@
 import mongoose from 'mongoose';
 
 const attendanceSchema = new mongoose.Schema({
-  status: {
-    type: String,
-  },
   registration: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Registration',
@@ -11,6 +8,9 @@ const attendanceSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now(),
+  },
+  status: {
+    type: String,
   },
 });
 

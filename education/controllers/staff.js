@@ -8,7 +8,10 @@ export const getAllStaffEmployees = async (req, res) => {
       data: staff,
     });
   } catch (error) {
-    console.log(error);
+    res.status(404).json({
+      status: 'fail',
+      error,
+    });
   }
 };
 
@@ -21,7 +24,7 @@ export const getOneStaffEmployees = async (req, res) => {
     });
   } catch (error) {
     res.status(404).json({
-      message: 'fail',
+      status: 'fail',
       error,
     });
   }
@@ -34,6 +37,9 @@ export const createStaffEmployee = async (req, res) => {
       message: 'success',
     });
   } catch (error) {
-    console.log(error);
+    res.status(400).json({
+      status: 'fail',
+      error,
+    });
   }
 };
