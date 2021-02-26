@@ -10,11 +10,15 @@ import {
   changeOffer,
   submitInstallment,
   getTransactions,
+  getOneRegistration,
 } from '../controllers/registration.js';
 
 const router = express.Router();
 
 router.get('/all', getAllRegistrations); // all present and past students in any course
+
+router.get('/:registrationId', getOneRegistration);
+
 router.get('/offer/:offerId', getOfferRegistrations); // all students in a batch
 
 // router.get('/due-date/:dueDateFrom/:dueDateTo', getRegistrationsByDueDate);

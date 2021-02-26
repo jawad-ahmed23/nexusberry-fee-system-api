@@ -54,7 +54,10 @@ registrationSchema.pre(/^find/, function (next) {
       path: 'student',
       select: '-__v',
     })
-    .populate('transactions');
+    .populate('transactions')
+    .populate({
+      path: 'staffNotes.staff',
+    });
   next();
 });
 

@@ -18,7 +18,7 @@ export const getAllRegistrations = async (req, res) => {
 
 export const getOneRegistration = async (req, res) => {
   try {
-    const registration = await Registration.findById(req.params.id);
+    const registration = await Registration.findById(req.params.registrationId);
     res.status(200).json({
       message: 'succees',
       registration,
@@ -191,7 +191,7 @@ export const submitInstallment = async (req, res) => {
     const date = new Date();
     const nextDueDate = new Date(date.setMonth(date.getMonth() + 1));
 
-    await Registration.findOneAndUpdate(
+    const response = await Registration.findOneAndUpdate(
       {
         offering: offerId,
         student: studentId,
@@ -207,6 +207,7 @@ export const submitInstallment = async (req, res) => {
 
     res.status(200).json({
       message: 'success',
+      response,
     });
   } catch (error) {
     res.status(400).json({
