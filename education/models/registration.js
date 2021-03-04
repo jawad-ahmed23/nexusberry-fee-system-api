@@ -48,18 +48,18 @@ const registrationSchema = mongoose.Schema({
   ],
 });
 
-registrationSchema.pre(/^find/, function (next) {
-  this.populate({ path: 'offering', select: '-__v' })
-    .populate({
-      path: 'student',
-      select: '-__v',
-    })
-    .populate('transactions')
-    .populate({
-      path: 'staffNotes.staff',
-    });
-  next();
-});
+// registrationSchema.pre(/^find/, function (next) {
+//   this.populate({ path: 'offering', select: '-__v' })
+//     .populate({
+//       path: 'student',
+//       select: '-__v',
+//     })
+//     .populate('transactions')
+//     .populate({
+//       path: 'staffNotes.staff',
+//     });
+//   next();
+// });
 
 export default mongoose.model('Registration', registrationSchema);
 

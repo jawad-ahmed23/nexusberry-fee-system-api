@@ -9,8 +9,8 @@ import {
   getStudentRegistrationDetail,
   changeOffer,
   submitInstallment,
-  getTransactions,
   getOneRegistration,
+  addNote,
 } from '../controllers/registration.js';
 
 const router = express.Router();
@@ -23,6 +23,9 @@ router.get('/offer/:offerId', getOfferRegistrations); // all students in a batch
 
 // router.get('/due-date/:dueDateFrom/:dueDateTo', getRegistrationsByDueDate);
 router.post('/due-date', getRegistrationsByDueDate);
+
+// Add Note based on registration Id
+router.post('/add-note/:registrationId', addNote);
 
 // student registration detail of all current and past offerings that he has attended
 router.get('/student-detail/:studentId', getStudentRegistrationDetail);
@@ -39,7 +42,7 @@ router.put(
 // router.get('/transactions/:registrationId', getTransactions); // Date wise fee detail
 // router.get('/transation/offer'); // offering wise fee detail
 
-router.put('/:id', updateRegistration);
+router.patch('/:id', updateRegistration);
 
 router.post('/', createRegistration);
 router.delete('/:id', deleteRegistration);

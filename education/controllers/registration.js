@@ -18,7 +18,16 @@ export const getAllRegistrations = async (req, res) => {
 
 export const getOneRegistration = async (req, res) => {
   try {
-    const registration = await Registration.findById(req.params.registrationId);
+    const registration = await Registration.findById(req.params.registrationId)
+      .populate({ path: 'offering', select: '-__v' })
+      .populate({
+        path: 'student',
+        select: '-__v',
+      })
+      .populate('transactions')
+      .populate({
+        path: 'staffNotes.staff',
+      });
     res.status(200).json({
       message: 'succees',
       registration,
@@ -81,7 +90,16 @@ export const getOfferRegistrations = async (req, res) => {
   try {
     const registrations = await Registration.find()
       .where('offering')
-      .equals(req.params.offerId);
+      .equals(req.params.offerId)
+      .populate({ path: 'offering', select: '-__v' })
+      .populate({
+        path: 'student',
+        select: '-__v',
+      })
+      .populate('transactions')
+      .populate({
+        path: 'staffNotes.staff',
+      });
     res.status(200).json({
       message: 'success',
       result: registrations.length,
@@ -144,7 +162,16 @@ export const getStudentRegistrationDetail = async (req, res) => {
   try {
     const studentRegistrationsDetail = await Registration.find()
       .where('student')
-      .equals(req.params.studentId);
+      .equals(req.params.studentId)
+      .populate({ path: 'offering', select: '-__v' })
+      .populate({
+        path: 'student',
+        select: '-__v',
+      })
+      .populate('transactions')
+      .populate({
+        path: 'staffNotes.staff',
+      });
     res.status(200).json({
       status: 'success',
       result: studentRegistrationsDetail.length,
@@ -228,6 +255,34 @@ export const getTransactions = async (req, res) => {
   } catch (error) {
     res.status(400).json({
       status: 'fail',
+      error,
+    });
+  }
+};
+
+export const addNote = async (req, res) => {
+  const { registrationId } = req.params;
+  try {
+    const registration = await Registration.findByIdAndUpdate(
+      registrationId,
+      {
+        $push: {
+          staffNotes: req.body,
+        },
+      },
+      { new: true }
+    );
+
+    console.log(req.body);
+    console.log(registrationId);
+
+    res.status(200).json({
+      message: 'success',
+      registration,
+    });
+  } catch (error) {
+    res.status(404).json({
+      message: 'fail',
       error,
     });
   }

@@ -10,6 +10,9 @@ const studentSchema = mongoose.Schema({
   email: {
     type: String,
   },
+  image: {
+    type: String,
+  },
   // trainingMode: {
   //   type: String, // online, physical
   // },
